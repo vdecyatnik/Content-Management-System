@@ -9,7 +9,7 @@ module.exports = {
   },
 
   getRoles() {
-    return connection.query(`SELECT title, salary 
+    return connection.query(`SELECT title, salary, department_id
                               FROM role`);
   },
 

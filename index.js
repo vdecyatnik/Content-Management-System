@@ -161,10 +161,11 @@ function createDepartment() {
 
 function createEmployee() {
   db.getRoles().then((roles) => {
+    console.log(roles);
     const roleChoices = roles.map((role) => ({
       
-     name: role.department_id,
-     value:role.title
+     name: role.title,
+     value:role.department_id
      
       
       }));
@@ -173,8 +174,8 @@ function createEmployee() {
     console.log(
       roles.map((role) => ({
         
-        name: role.department_id,
-        value:role.title,
+        name: role.title,
+     value:role.department_id
        
 
 
@@ -216,6 +217,7 @@ function createEmployee() {
           {
            first_name: res.firstname,
             last_name: res.lastname,
+            role_id:res.newemployeerole
            
             //managerid
 
