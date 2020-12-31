@@ -25,8 +25,6 @@ CREATE TABLE role (
 
 );
 
-
-
 CREATE TABLE employee(
 
     id INT  AUTO_INCREMENT,
@@ -41,15 +39,15 @@ CREATE TABLE employee(
 
 );
 INSERT INTO department (name)
-VALUES ("sales"),("marketing");
+VALUES ("Sales"),("Marketing"),("Janitorial"), ("Accounting");
 
 
 
 
 INSERT INTO role (title,salary, department_id)
-VALUES ("lead sales", 800.00, 1),("graphic designer", 9000.0, 2);
+VALUES ("lead sales", 80000.00, 1),("graphic designer", 90000.00, 2),("window cleaner, 30000.00, 3"), ("CPA", 70000.00);
 
 
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("Valentina", "Decyatnik", 1,1 ), ("Dellie", "Decyatnik",2 , 2);
+VALUES ("Valentina", "Decyatnik", 1 ),4, ("Dellie", "Decyatnik",2,3), ("Jan", "Smith", 3,2),("Lisa", "Doe", 4, );
