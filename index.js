@@ -163,20 +163,19 @@ function createEmployee() {
   db.getRoles().then((roles) => {
     const roleChoices = roles.map((role) => ({
       
-      name: role.title,
-      //salary: role.salary,
-      //department_id: role.department_id,
-      value:role.id
+     name: role.department_id,
+     value:role.title
+     
       
-
-    }));
+      }));
     
 
     console.log(
       roles.map((role) => ({
         
-        value: role.title,
-        id:role.id
+        name: role.department_id,
+        value:role.title,
+       
 
 
 
@@ -202,6 +201,12 @@ function createEmployee() {
           name: "newemployeerole",
           choices: roleChoices,
         },
+        // {
+        //   message: "Who is the employees manager?",
+        //   type: "list",
+        //   name: "employeemanager",
+        //   choices: managerList,
+        // }
       ])
       .then((res) => {
         console.log(res);
@@ -211,7 +216,7 @@ function createEmployee() {
           {
            first_name: res.firstname,
             last_name: res.lastname,
-            role_id: res.newemployeerole
+           
             //managerid
 
 
