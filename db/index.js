@@ -14,10 +14,10 @@ module.exports = {
   },
 
   getEmployees() {
-    return connection.query(`SELECT e.first_name, 
+    return connection.query(`SELECT e.id,e.first_name, 
                             e.last_name,
                             r.title,r.salary,d.name,
-                            CONCAT(e2.first_name, " ", e2.last_name) AS "manager name"
+                            CONCAT(e2.first_name, " ", e2.last_name) AS "manager_name"
                              FROM employee AS e
                              LEFT JOIN role AS r
                              ON e.role_id = r.id

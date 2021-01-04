@@ -41,9 +41,9 @@ function startApp() {
           createDepartment();
           return;
 
-          case "CREATE_EMPLOYEE":
-            createEmployee();
-            return;
+        case "CREATE_EMPLOYEE":
+          createEmployee();
+          return;
 
         case "QUIT":
           endApp();
@@ -109,7 +109,6 @@ function createRole() {
           type: "input",
           name: "rolesalary",
         },
-        
       ])
       .then((res) => {
         //console.log(res);
@@ -119,7 +118,6 @@ function createRole() {
           {
             title: res.rolename,
             salary: res.rolesalary,
-           
           },
           function (err) {
             if (err) throw err;
@@ -163,74 +161,79 @@ function createEmployee() {
   db.getRoles().then((roles) => {
     console.log(roles);
     const roleChoices = roles.map((role) => ({
-      
-     name: role.title,
-     value:role.department_id
-     
-      
-      }));
-    
+      name: role.title,
+      value: role.department_id,
+    }));
 
     console.log(
       roles.map((role) => ({
-        
         name: role.title,
-     value:role.department_id
-       
-
-
-
-        
+        value: role.department_id,
       }))
     );
 
-    inquirer
-      .prompt([
-        {
-          message: "Enter first name of new employee",
-          type: "input",
-          name: "firstname",
-        },
-        {
-          message: "Enter last name of new employee",
-          type: "input",
-          name: "lastname",
-        },
-        {
-          message: "What is the new employees role?",
-          type: "list",
-          name: "newemployeerole",
-          choices: roleChoices,
-        },
-        // {
-        //   message: "Who is the employees manager?",
-        //   type: "list",
-        //   name: "employeemanager",
-        //   choices: managerList,
-        // }
-      ])
-      .then((res) => {
-        console.log(res);
+    db.getEmployees().then((employees) => {
+      console.log(employees);
+      const managerChoices = employees.map((employee) => ({
+         value: employee.id,
+        name: employee.first_name + " " + employee.last_name,
+      }));
 
-        connection.query(
-          "INSERT INTO employee SET ? ",
+      console.log(
+        employees.map((employee) => ({
+          value: employee.id,
+          name: employee.first_name + " " + employee.last_name,
+        }))
+      );
+
+      inquirer
+        .prompt([
           {
-           first_name: res.firstname,
-            last_name: res.lastname,
-            role_id:res.newemployeerole
-           
-            //managerid
-
-
+            message: "Enter first name of new employee",
+            type: "input",
+            name: "firstname",
           },
-          function (err) {
-            if (err) throw err;
-            console.log("Employee has been added");
-            console.table(res);
-            startApp();
-          }
-        );
-      });
+          {
+            message: "Enter last name of new employee",
+            type: "input",
+            name: "lastname",
+          },
+          {
+            message: "What is the new employees role?",
+            type: "list",
+            name: "newemployeerole",
+            choices: roleChoices,
+          },
+          {
+            message: "Who is the employees manager?",
+            type: "list",
+            name: "employeemanager",
+            choices: managerChoices,
+          },
+        ])
+        .then((res) => {
+          console.log(res);
+
+          connection.query(
+            "INSERT INTO employee SET ? ",
+            {
+              first_name: res.firstname,
+              last_name: res.lastname,
+              role_id: res.newemployeerole,
+              manager_id: res.employeemanager
+              
+
+              //managerid
+            },
+            function (err) {
+              if (err) throw err;
+              console.log("Employee has been added");
+              console.table(res);
+              startApp();
+            }
+          );
+        });
+    });
   });
 }
 startApp();
