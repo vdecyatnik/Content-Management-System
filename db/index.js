@@ -42,10 +42,10 @@ module.exports = {
       connection.query("UPDATE employee SET ? WHERE ?",
       [
         {
-          role_id: data.id,
+          role_id: data.role_id,
         },
         {
-          id: data.role_id,
+          id: data.id,
         },
       ]
     ));
