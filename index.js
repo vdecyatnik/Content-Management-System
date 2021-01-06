@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const { employeeUpdate, deleteDepartment, deleteRole } = require("./db");
 
 const db = require("./db");
 const connection = require("./db/connection");
@@ -16,6 +17,9 @@ function startApp() {
         "CREATE_ROLE",
         "ADD_DEPARTMENT",
         "CREATE_EMPLOYEE",
+        "UPDATE_EMPLOYEE_ROLE",
+        "DELETE_DEPARTMENT",
+        "DELETE_ROLE",
         "QUIT",
       ],
     })
@@ -43,6 +47,18 @@ function startApp() {
 
         case "CREATE_EMPLOYEE":
           createEmployee();
+          return;
+
+        case "UPDATE_EMPLOYEE_ROLE":
+          updateEmployee();
+          return;
+
+        case "DELETE_DEPARTMENT":
+          deleteDept();
+          return;
+
+        case "DELETE_ROLE":
+          deleteR();
           return;
 
         case "QUIT":
@@ -175,7 +191,7 @@ function createEmployee() {
     db.getEmployees().then((employees) => {
       console.log(employees);
       const managerChoices = employees.map((employee) => ({
-         value: employee.id,
+        value: employee.id,
         name: employee.first_name + " " + employee.last_name,
       }));
 
@@ -220,8 +236,7 @@ function createEmployee() {
               first_name: res.firstname,
               last_name: res.lastname,
               role_id: res.newemployeerole,
-              manager_id: res.employeemanager
-              
+              manager_id: res.employeemanager,
 
               //managerid
             },
@@ -236,4 +251,112 @@ function createEmployee() {
     });
   });
 }
+
+function updateEmployee() {
+  db.getEmployees().then((employees) => {
+    console.table(employees);
+    const newEmployeeList = employees.map((employee) => ({
+      value: employee.id,
+      name: employee.first_name + " " + employee.last_name,
+    }));
+
+    console.log(
+      employees.map((employee) => ({
+        value: employee.id,
+        name: employee.first_name + " " + employee.last_name,
+      }))
+    );
+
+    db.getRoles().then((roles) => {
+      console.log(roles);
+      const newroleChoices = roles.map((role) => ({
+        value: role.id,
+        name: role.title,
+      }));
+
+      inquirer
+        .prompt([
+          {
+            message: "Which employee would you like to update?",
+            type: "list",
+            name: "id",
+            choices: newEmployeeList,
+          },
+          {
+            message: "What is the employees new role?",
+            type: "list",
+            name: "role_id",
+            choices: newroleChoices,
+          },
+        ])
+        .then((res) => {
+          //console.log(res);
+          employeeUpdate(res);
+          console.table(res);
+          startApp();
+        });
+    });
+  });
+}
+
+function deleteDept() {
+  db.getDepartments().then((department) => {
+    const deleteDepts = department.map((department) => ({
+      value: department.id,
+      name: department.name,
+    }));
+
+    inquirer
+      .prompt([
+        {
+          message: "Which department would you like to delete?",
+          type: "list",
+          name: "id",
+          choices: deleteDepts,
+        },
+      ])
+      .then((res) => {
+        deleteDepartment(res);
+        console.table(res);
+        startApp();
+      });
+  });
+}
+
+
+function deleteR() {
+  db.getRoles().then((roles) => {
+    const deleteRoles = roles.map((role) => ({
+      value: role.id,
+      name: role.title,
+    }));
+
+    inquirer
+      .prompt([
+        {
+          message: "Which role would you like to delete?",
+          type: "list",
+          name: "id",
+          choices: deleteRoles,
+        },
+      ])
+      .then((res) => {
+        deleteRole(res);
+        console.table(res);
+        startApp();
+      });
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
 startApp();

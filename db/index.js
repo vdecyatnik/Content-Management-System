@@ -4,13 +4,18 @@ const connection = require("./connection");
 
 module.exports = {
   getDepartments() {
-    return connection.query(`SELECT name
+    return connection.query(`SELECT *
                              FROM department`);
   },
 
   getRoles() {
-    return connection.query(`SELECT title, salary, department_id
-                              FROM role`);
+    return connection.query(`SELECT 
+                              r.id,
+                              r.title,
+                              r.salary,
+                              d.name,
+                              d.id AS department_id FROM role AS r
+                                LEFT JOIN department AS d ON r.department_id= d.id`);
   },
 
   getEmployees() {
@@ -25,15 +30,44 @@ module.exports = {
                              ON e.manager_id = e2.id
                              INNER JOIN department AS d ON r.department_id=d.id
                             
+                            
 
                             
 
                              `);
   },
 
-  // insertRole( data ) {
-  //     return connection.query( );//complete this query
-  // }
+  employeeUpdate(data) {
+    return (
+      connection.query("UPDATE employee SET ? WHERE ?",
+      [
+        {
+          role_id: data.id,
+        },
+        {
+          id: data.role_id,
+        },
+      ]
+    ));
+  },
 
-  
+
+
+
+  deleteDepartment(data) {
+
+
+    return (
+      connection.query("DELETE FROM department WHERE ?", data));
+    
+    
+  },
+
+  deleteRole(data) {
+
+    return(
+    connection.query("DELETE FROM role WHERE ?", data));
+  },
+
+
 };
