@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const { employeeUpdate, deleteDepartment, deleteRole } = require("./db");
+const { employeeUpdate, deleteDepartment, deleteRole, deleteEmployee } = require("./db");
 
 const db = require("./db");
 const connection = require("./db/connection");
@@ -20,6 +20,7 @@ function startApp() {
         "UPDATE_EMPLOYEE_ROLE",
         "DELETE_DEPARTMENT",
         "DELETE_ROLE",
+        "DELETE_EMPLOYEE",
         "QUIT",
       ],
     })
@@ -61,8 +62,12 @@ function startApp() {
           deleteR();
           return;
 
-        case "QUIT":
-          endApp();
+        case "DELETE_EMPLOYEE":
+          deleteEmployees();
+          return;
+
+        default:
+          connection.end();
       }
     });
 }
@@ -86,10 +91,6 @@ function viewEmployees() {
     console.table(results);
     startApp();
   });
-}
-
-function endApp() {
-  connection.end();
 }
 
 function createRole() {
@@ -132,8 +133,10 @@ function createRole() {
         connection.query(
           "INSERT INTO role SET ?",
           {
+            id: res.id,
             title: res.rolename,
             salary: res.rolesalary,
+            department_id: res.department_id,
           },
           function (err) {
             if (err) throw err;
@@ -323,7 +326,6 @@ function deleteDept() {
   });
 }
 
-
 function deleteR() {
   db.getRoles().then((roles) => {
     const deleteRoles = roles.map((role) => ({
@@ -348,15 +350,37 @@ function deleteR() {
   });
 }
 
+function deleteEmployees() {
+  db.getEmployees().then((employees) => {
+    console.table(employees);
+    const deleteEmployeesList = employees.map((employee) => ({
+      value: employee.id,
+      name: employee.first_name + " " + employee.last_name,
+    }));
 
+    console.log(
+      employees.map((employee) => ({
+        value: employee.id,
+        name: employee.first_name + " " + employee.last_name,
+      }))
+    );
 
-
-
-
-
-
-
-
-
+    inquirer
+      .prompt([
+        {
+          message: "Which employee would you like to delete?",
+          type: "list",
+          name: "id",
+          choices: deleteEmployeesList,
+        },
+      ])
+      .then((res) => {
+        //console.log(res);
+        deleteEmployee(res);
+        console.table(res);
+        startApp();
+      });
+  });
+}
 
 startApp();

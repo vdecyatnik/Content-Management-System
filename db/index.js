@@ -38,36 +38,25 @@ module.exports = {
   },
 
   employeeUpdate(data) {
-    return (
-      connection.query("UPDATE employee SET ? WHERE ?",
-      [
-        {
-          role_id: data.role_id,
-        },
-        {
-          id: data.id,
-        },
-      ]
-    ));
+    return connection.query("UPDATE employee SET ? WHERE ?", [
+      {
+        role_id: data.role_id,
+      },
+      {
+        id: data.id,
+      },
+    ]);
   },
 
-
-
-
   deleteDepartment(data) {
-
-
-    return (
-      connection.query("DELETE FROM department WHERE ?", data));
-    
-    
+    return connection.query("DELETE FROM department WHERE ?", data);
   },
 
   deleteRole(data) {
-
-    return(
-    connection.query("DELETE FROM role WHERE ?", data));
+    return connection.query("DELETE FROM role WHERE ?", data);
   },
 
-
+  deleteEmployee(data) {
+    return connection.query("DELETE FROM employee WHERE ?", data);
+  },
 };
