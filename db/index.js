@@ -4,7 +4,7 @@ const connection = require("./connection");
 
 module.exports = {
   getDepartments() {
-    return connection.query(`SELECT *
+    return connection.query(`SELECT name
                              FROM department`);
   },
 
@@ -15,7 +15,7 @@ module.exports = {
                               r.salary,
                               d.name,
                               d.id AS department_id FROM role AS r
-                                LEFT JOIN department AS d ON r.department_id= d.id`);
+                              LEFT JOIN department AS d ON r.department_id= d.id`);
   },
 
   getEmployees() {

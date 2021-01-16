@@ -181,15 +181,11 @@ function createEmployee() {
     console.log(roles);
     const roleChoices = roles.map((role) => ({
       name: role.title,
-      value: role.department_id,
+      value: role.id,
     }));
 
-    console.log(
-      roles.map((role) => ({
-        name: role.title,
-        value: role.department_id,
-      }))
-    );
+    console.log(roleChoices);
+    
 
     db.getEmployees().then((employees) => {
       console.log(employees);
@@ -198,12 +194,7 @@ function createEmployee() {
         name: employee.first_name + " " + employee.last_name,
       }));
 
-      console.log(
-        employees.map((employee) => ({
-          value: employee.id,
-          name: employee.first_name + " " + employee.last_name,
-        }))
-      );
+    
 
       inquirer
         .prompt([

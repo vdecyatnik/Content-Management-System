@@ -2,25 +2,46 @@
 
 ## Table of Contents
 
--[Description](#Description)
+* [Description](#Description)
 
--[Technologies](#Technologies)
+* [Technologies Used](#Technologies)
 
--[Images](#Images)
+* [Instructions](#Instruction)
 
--[Links](#Links)
+* [Installation](#Installation)
+
+* [Images](#Images)
+
+* [Links](#Links)
 
 
 # Description
 
-Content Management Systems is a command line application that allows you to keep up to date on your employees. You may add employees, roles, and departments as well as delete them. You can also update employees roles. You are also able to view the employees salary as well as their manager. 
+Content Management Systems is a command line application. This application uses MYSQL database to keep track of employees, departments and roles. In this application you may view and manage the departments, roles and employees as well as delete them and update employees roles.  You will see the data displayed in a table. 
 
 # Technologies Used
 
-1. SQL
-2. Inquirer
-3. Node
-4. Javascript
+* SQL
+* Inquirer
+* Node
+* Javascript 
+
+# Instructions
+
+1. To use Content-Management-Systems you need to open the file in a code editor. 
+2. Right click index.js and open in integrated terminal. 
+3. Type node index.js and this will start the program. 
+4. The program will prompt questions on what you would like to do view add or delete employees etc,.
+5. Type the answer and press enter and the data will be inserted and saved into the database.
+
+# Installation
+
+1. To install Content-Management-Systems fork the repository from https://github.com/vdecyatnik/Content-Management-System 
+
+2. Clone the repository to your computer using git. 
+
+3. Open the project and files with your preferred text editor. 
+
 
 # Images
 
