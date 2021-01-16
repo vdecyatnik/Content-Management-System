@@ -10,6 +10,8 @@
 
 * [Installation](#Installation)
 
+* [Future Goals](#FutureGoals)
+
 * [Images](#Images)
 
 * [Links](#Links)
@@ -43,6 +45,10 @@ Content Management Systems is a command line application. This application uses 
 3. Open the project and files with your preferred text editor. 
 
 
+# Future Goals
+
+In the future I would like to improve this program by adding more SQL queries and prompts. I would like to be able to update employee managers, view employees by manager and view the total utilized budget of a department.
+
 # Images
 
 ![tableview](https://user-images.githubusercontent.com/72056832/104141449-bba9b700-536b-11eb-9bac-e48428a21ed7.png)
@@ -55,4 +61,6 @@ GitHub Repository
 https://github.com/vdecyatnik/Content-Management-System
 
 Video of working Application
+
+https://drive.google.com/file/d/1887wMIMH6NjTwGrC9ovEaPA5CAQkbjkB/view
 

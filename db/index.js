@@ -4,7 +4,7 @@ const connection = require("./connection");
 
 module.exports = {
   getDepartments() {
-    return connection.query(`SELECT name
+    return connection.query(`SELECT *
                              FROM department`);
   },
 
